@@ -1,27 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chat/contants.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends StatelessWidget {
   const MainScreen({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  int _selectedNavbar = 0;
-
-  void _changeSelectNavbar(int index) {
-    setState(() {
-      _selectedNavbar = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[900],
+      backgroundColor: primaryColor,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text("Chats"),
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.search),
+        //     onPressed: () {},
+        //   )
+        // ],
       ),
       body: Container(
         color: Colors.black54,

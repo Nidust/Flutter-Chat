@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat/screens/main/main_screen.dart';
+import 'package:flutter_chat/theme.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+  
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      title: "Flutter Chat Demo",
       debugShowCheckedModeBanner: false,
-      home: MainScreen(),
+      theme: lightThemeData(context),
+      darkTheme: darkThemeData(context),
+      home: const MainScreen(),
     );
   }
-
 }
