@@ -4,10 +4,10 @@ import 'package:flutter_chat/contants.dart';
 import 'package:flutter_chat/models/chat.dart';
 import 'package:flutter_chat/screens/messages/message_screen.dart';
 
-import 'chat_card.dart';
+import 'components/chat_card.dart';
 
-class ChatScreenBody extends StatelessWidget {
-  const ChatScreenBody({Key? key}) : super(key: key);
+class ChatScreen extends StatelessWidget {
+  const ChatScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +37,34 @@ class ChatScreenBody extends StatelessWidget {
             itemCount: chatsData.length,
             itemBuilder: (context, index) => ChatCard(
               chat: chatsData[index],
-              press: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MessagesScreen(),
-                ),
-              ),
+              press: () => Navigator.of(context).push(_showChatData()),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Route _showChatData() {
+    const Duration transitionSpeed = Duration(milliseconds: 150);
+
+    return PageRouteBuilder(
+      transitionDuration: transitionSpeed,
+      reverseTransitionDuration: transitionSpeed,
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          const MessagesScreen(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = const Offset(0.0, 1.0);
+        var end = Offset.zero;
+
+        var tween = Tween(begin: begin, end: end);
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(
+          position: offsetAnimation,
+          child: child,
+        );
+      },
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chat/contants.dart';
-import 'package:flutter_chat/screens/main/components/chat_body.dart';
+import 'package:flutter_chat/screens/call/call_screen.dart';
+import 'package:flutter_chat/screens/chat/chat_screen.dart';
+import 'package:flutter_chat/screens/people/people_screen.dart';
+import 'package:flutter_chat/screens/profile/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -10,14 +12,21 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
+
+  final widgetOptions = [
+    const ProfileScreen(),
+    const CallScreen(),
+    const PeopleScreen(),
+    const ChatScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text("Chats"),
+        title: const Text("Flutter Chat"),
         actions: [
           IconButton(
             icon: const Icon(Icons.search),
@@ -25,15 +34,7 @@ class _MainScreenState extends State<MainScreen> {
           )
         ],
       ),
-      body: const ChatScreenBody(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: primaryColor,
-        child: const Icon(
-          Icons.person_add_alt_1,
-          color: Colors.white,
-        ),
-      ),
+      body: widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
@@ -43,16 +44,16 @@ class _MainScreenState extends State<MainScreen> {
           });
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.messenger), label: "Chats"),
-          BottomNavigationBarItem(icon: Icon(Icons.people), label: "People"),
-          BottomNavigationBarItem(icon: Icon(Icons.call), label: "Calls"),
           BottomNavigationBarItem(
             icon: CircleAvatar(
               radius: 14,
               backgroundImage: AssetImage("assets/images/user_2.png"),
             ),
             label: "Profile",
-          )
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.call), label: "Calls"),
+          BottomNavigationBarItem(icon: Icon(Icons.people), label: "People"),
+          BottomNavigationBarItem(icon: Icon(Icons.messenger), label: "Chats"),
         ],
       ),
     );
